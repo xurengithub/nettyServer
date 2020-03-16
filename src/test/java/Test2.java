@@ -1,3 +1,4 @@
+import com.xuren.proto.PersonModel;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
@@ -20,5 +21,16 @@ public class Test2 {
         buff.writeInt(1);
         channel.writeInbound(buff);
         channel.flush();
+    }
+
+    @Test
+    public void testProto() {
+        PersonModel.Person.Builder builder = PersonModel.Person.newBuilder();
+        builder.setId(1);
+        PersonModel.Person person = builder.build();
+        for (byte b : person.toByteArray()) {
+            System.out.print(b);
+        }
+
     }
 }
