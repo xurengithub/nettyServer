@@ -33,7 +33,7 @@ public class NetWorkServer {
             serverBootstrap.option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);
             serverBootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
                 protected void initChannel(SocketChannel socketChannel) throws Exception {
-                    socketChannel.pipeline().addLast(new LengthFieldBasedFrameDecoder(1024,0,4,4,4))
+                    socketChannel.pipeline().addLast(new LengthFieldBasedFrameDecoder(1024,0,4,0,4))
                             .addLast(new ProtoResolveHandler());
                 }
             });

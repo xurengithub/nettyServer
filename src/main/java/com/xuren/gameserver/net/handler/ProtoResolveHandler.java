@@ -1,25 +1,22 @@
 package com.xuren.gameserver.net.handler;
 
-import com.xuren.gameserver.events.LoginEvent;
-import com.xuren.gameserver.events.SimpleApplicationEventMulticaster;
+import com.xuren.gameserver.proto.ProtoMsg3;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
+
 
 public class ProtoResolveHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf byteBuf = (ByteBuf) msg;
         try {
-            int protoTag = byteBuf.readInt();
             byte[] bytes = new byte[byteBuf.readableBytes()];
             byteBuf.readBytes(bytes);
-            if(protoTag == 10001) {
-
-                UserModel.LoginMsg loginMsg = UserModel.LoginMsg.parseFrom(bytes);
-                new SimpleApplicationEventMulticaster().multicastEvent(new LoginEvent(protoTag,0,loginMsg.getUserName(),loginMsg.getPassword()));
-            }
+            ProtoMsg3.ProtoMsg.Message outmsg =
+                    ProtoMsg3.ProtoMsg.Message.parseFrom(bytes);
+            super.channelRead(ctx, outmsg);
         } finally {
             ReferenceCountUtil.release(byteBuf);
         }
