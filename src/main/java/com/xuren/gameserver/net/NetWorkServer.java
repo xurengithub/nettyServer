@@ -1,4 +1,6 @@
-import com.sun.security.ntlm.Server;
+package com.xuren.gameserver.net;
+
+import com.xuren.gameserver.net.handler.ProtoResolveHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.ChannelFuture;
@@ -8,19 +10,17 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+@Service
 public class NetWorkServer {
     private ServerBootstrap serverBootstrap = new ServerBootstrap();
     /**
      * 端口号
      */
-    private int serverPort = 8090;
-
-    public NetWorkServer(int serverPort) {
-        this.serverPort = serverPort;
-    }
+    private int serverPort = 8099;
 
     public void runServer() {
         EventLoopGroup boss = new NioEventLoopGroup(1);
@@ -33,10 +33,10 @@ public class NetWorkServer {
             serverBootstrap.option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);
             serverBootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
                 protected void initChannel(SocketChannel socketChannel) throws Exception {
-                    socketChannel.pipeline().addLast(new TestHander());
+                    socketChannel.pipeline().addLast(new LengthFieldBasedFrameDecoder(1024,0,4,4,4))
+                            .addLast(new ProtoResolveHandler());
                 }
             });
-            System.out.println("ds");
             ChannelFuture cf = serverBootstrap.bind().sync();
             System.out.println("服务器启动");
             ChannelFuture closeFuture = cf.channel().closeFuture();
@@ -49,5 +49,9 @@ public class NetWorkServer {
             workers.shutdownGracefully();
         }
 
+    }
+    public static void main(String[] args) {
+        NetWorkServer netWorkServer = new NetWorkServer();
+        netWorkServer.runServer();
     }
 }
