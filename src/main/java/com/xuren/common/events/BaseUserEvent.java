@@ -1,4 +1,4 @@
-package com.xuren.gameserver.events;
+package com.xuren.common.events;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;

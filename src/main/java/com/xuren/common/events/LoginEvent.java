@@ -1,4 +1,4 @@
-package com.xuren.gameserver.events;
+package com.xuren.common.events;
 
 public class LoginEvent extends BaseUserEvent {
     public String userName;

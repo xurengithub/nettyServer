@@ -14,8 +14,8 @@ public class ProtoResolveHandler extends ChannelInboundHandlerAdapter {
         try {
             byte[] bytes = new byte[byteBuf.readableBytes()];
             byteBuf.readBytes(bytes);
-            ProtoMsg3.ProtoMsg.Message outmsg =
-                    ProtoMsg3.ProtoMsg.Message.parseFrom(bytes);
+            ProtoMsg3.Message outmsg =
+                    ProtoMsg3.Message.parseFrom(bytes);
             super.channelRead(ctx, outmsg);
         } finally {
             ReferenceCountUtil.release(byteBuf);
