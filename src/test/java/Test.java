@@ -24,10 +24,11 @@ public class Test {
         UserInfoEntity userInfoEntity = new UserInfoEntity();
         userInfoEntity.setId(sid.nextShort());
         userInfoEntity.setNickName("xuren");
-        userInfoEntity.setAccount("123");
+        userInfoEntity.setAccount("12345679");
         userInfoEntity.setPassword("123456");
 
-        userMapper.saveOne(userInfoEntity);
+        int num = userMapper.saveOne(userInfoEntity);
+        System.out.println(num);
 
         List<UserInfoEntity> list = userMapper.queryAllUsers();
         for (UserInfoEntity l : list) {

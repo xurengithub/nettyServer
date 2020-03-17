@@ -1,24 +1,28 @@
 package com.xuren.gameserver.net.handler;
 
-import com.google.protobuf.GeneratedMessageV3;
-import com.google.protobuf.Message;
-import com.xuren.gameserver.proto.ProtoMsg3;
+import com.xuren.common.utils2.JsonUtil;
+import com.xuren.gameserver.net.NetMsgDispatcher;
+import com.xuren.gameserver.net.NetworkMsgMap;
+import com.xuren.gameserver.net.proto.MsgBase;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
 
-
-public class ProtoResolveHandler extends ChannelInboundHandlerAdapter {
+public class MsgResoveHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf byteBuf = (ByteBuf) msg;
         try {
+            // 协议类型
+            int protoType = byteBuf.readInt();
+            // 协议对象
             byte[] bytes = new byte[byteBuf.readableBytes()];
             byteBuf.readBytes(bytes);
-            ProtoMsg3.Message outmsg =
-                    ProtoMsg3.Message.parseFrom(bytes);
-            super.channelRead(ctx, outmsg);
+
+            MsgBase msgBase = (MsgBase) JsonUtil.JsonBytes2Object(bytes, NetworkMsgMap.getClassByProtoType(protoType));
+            // 添加到消息队列
+            NetMsgDispatcher.dispatcher(msgBase);
         } finally {
             ReferenceCountUtil.release(byteBuf);
         }

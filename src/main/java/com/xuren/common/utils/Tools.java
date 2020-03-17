@@ -8,16 +8,16 @@ import java.util.Properties;
 import java.util.Random;
 
 /**
- * ¹¤¾ß:1.»ñÈ¡×ÊÔ´ÅäÖÃÎÄ¼ş£» 2.»ñÈ¡×ÊÔ´ÅäÖÃÎÄ¼şµÄ¾ßÌå×Ö¶Î£» 3.Ìî³äPreparedStatement£»
+ * å·¥å…·:1.è·å–èµ„æºé…ç½®æ–‡ä»¶ï¼› 2.è·å–èµ„æºé…ç½®æ–‡ä»¶çš„å…·ä½“å­—æ®µï¼› 3.å¡«å……PreparedStatementï¼›
  */
 public class Tools {
 
-	/**ÓÃÓÚ¶ÁÈ¡×ÊÔ´ÅäÖÃÎÄ¼şµÄbundle*/
+	/**ç”¨äºè¯»å–èµ„æºé…ç½®æ–‡ä»¶çš„bundle*/
 	private static Properties properties;	
 
 	
 	/**
-	 * ³õÊ¼»¯ÅäÖÃÎÄ¼şµÄÂ·¾¶²¢»ñÈ¡×îĞÂµÄproperties
+	 * åˆå§‹åŒ–é…ç½®æ–‡ä»¶çš„è·¯å¾„å¹¶è·å–æœ€æ–°çš„properties
 	 */
 	public void getProperties(String file){
 		try{
@@ -33,7 +33,7 @@ public class Tools {
 	}
 
 	/**
-	 * »ñÈ¡×ÊÔ´ÅäÖÃÎÄ¼şÀï¶¨ÒåµÄ×Ö¶Î£¬ÀıÈç£ºkey = xxx
+	 * è·å–èµ„æºé…ç½®æ–‡ä»¶é‡Œå®šä¹‰çš„å­—æ®µï¼Œä¾‹å¦‚ï¼škey = xxx
 	 */
 	public String getStringFromProperty(String key){
 		String str = null;
@@ -44,8 +44,8 @@ public class Tools {
 	}
 
 	/**
-	 * Ìî³äPreparedStatementÖĞµÄÎ´ÖªÏî
-	 * @return ·µ»ØÌî³äºóµÄPreparedStatement
+	 * å¡«å……PreparedStatementä¸­çš„æœªçŸ¥é¡¹
+	 * @return è¿”å›å¡«å……åçš„PreparedStatement
 	 */
 	public static PreparedStatement setPreStatementItems(PreparedStatement preStat, Object... inserts){
 		try {
@@ -54,11 +54,11 @@ public class Tools {
 			}
 			int i = 1;
 			for (Object v : inserts) {
-				if(v.getClass().getSimpleName().equals("Integer")){//ÅĞ¶ÏÊÇÕûĞÎ
+				if(v.getClass().getSimpleName().equals("Integer")){//åˆ¤æ–­æ˜¯æ•´å½¢
 					preStat.setInt(i,(Integer)v);
 					i++;
 				}               	
-				else if(v.getClass().getSimpleName().equals("String")){//ÅĞ¶ÏÊÇ×Ö·û´®
+				else if(v.getClass().getSimpleName().equals("String")){//åˆ¤æ–­æ˜¯å­—ç¬¦ä¸²
 					preStat.setString(i, (String)v);
 					i++;
 				}
@@ -76,7 +76,7 @@ public class Tools {
 	}
 	
 	/**
-	 * »ñÈ¡×Ö·û´®³¤¶È
+	 * è·å–å­—ç¬¦ä¸²é•¿åº¦
 	 */
 	 public static int getWordCount(String s)
 	    {
@@ -94,7 +94,7 @@ public class Tools {
 	    }
 	
 	/**
-	 * »ñµÃÒ»¸öËæ»úĞòÁĞ 
+	 * è·å¾—ä¸€ä¸ªéšæœºåºåˆ— 
 	 */
 	public static int[] getRandomSequence(int rangeSize, int queueSize){
 		if(rangeSize < queueSize){

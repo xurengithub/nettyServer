@@ -7,6 +7,6 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    void saveOne(UserInfoEntity user);
+    int saveOne(UserInfoEntity user);
     List<UserInfoEntity> queryAllUsers();
 }
