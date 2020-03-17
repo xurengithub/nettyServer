@@ -6,6 +6,8 @@
         <result column="nick_name" property="nickName"/>
         <result column="account" property="account"/>
         <result column="password" property="password"/>
+        <result column="insert_dt" property="insertDt"/>
+        <result column="upd_dt" property="updDt"/>
     </resultMap>
 
     <insert id="saveOne" parameterType="com.xuren.dao.entity.UserInfoEntity">

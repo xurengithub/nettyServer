@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableAutoConfiguration
 //使包路径下带有@Value的注解自动注入
 //使包路径下带有@Autowired的类可以自动注入
-@ComponentScan("com.xuren.gameserver")
+@ComponentScan({"com.xuren","org.n3r.idworker"})
 @MapperScan("com.xuren.dao.mapper")
 @SpringBootApplication
 public class ServerApplication {
