@@ -1,7 +1,10 @@
+import com.google.protobuf.GeneratedMessageV3;
+import com.google.protobuf.InvalidProtocolBufferException;
 import com.xuren.common.utils.RedisOperator;
 import com.xuren.dao.entity.UserInfoEntity;
 import com.xuren.dao.mapper.UserMapper;
 import com.xuren.gameserver.ServerApplication;
+import com.xuren.gameserver.proto.ProtoMsg3;
 import org.junit.runner.RunWith;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +42,10 @@ public class Test {
     @org.junit.Test
     public void testRedis() {
         redisOperator.set("user_name_name", "xuren");
+    }
+
+    @org.junit.Test
+    public void testProto() throws InvalidProtocolBufferException {
+
     }
 }

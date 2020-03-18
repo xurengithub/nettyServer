@@ -7,6 +7,18 @@ public class MsgLoginCS extends MsgBase{
     private String id;
     private String pw;
 
+    public MsgLoginCS() {
+        type = NetProtoConst.MSG_LOGIN_CS;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     public String getId() {
         return id;
     }

@@ -1,6 +1,6 @@
 package com.xuren.gameserver.net;
 
-import com.xuren.gameserver.net.handler.ProtoResolveHandler;
+import com.xuren.gameserver.net.handler.MsgResoveHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.ChannelFuture;
@@ -11,7 +11,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,8 +32,8 @@ public class NetWorkServer {
             serverBootstrap.option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);
             serverBootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
                 protected void initChannel(SocketChannel socketChannel) throws Exception {
-                    socketChannel.pipeline().addLast(new LengthFieldBasedFrameDecoder(1024,0,4,4,4))
-                            .addLast(new ProtoResolveHandler());
+                    socketChannel.pipeline().addLast(new LengthFieldBasedFrameDecoder(2048,0,4,4,0))
+                            .addLast(new MsgResoveHandler());
                 }
             });
             ChannelFuture cf = serverBootstrap.bind().sync();

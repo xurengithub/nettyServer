@@ -117,21 +117,30 @@ public final class ProtoMsg3 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string user_name = 1;</code>
+     * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+     */
+    int getTypeValue();
+    /**
+     * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+     */
+    com.xuren.gameserver.proto.ProtoMsg3.HeadType getType();
+
+    /**
+     * <code>string user_name = 2;</code>
      */
     java.lang.String getUserName();
     /**
-     * <code>string user_name = 1;</code>
+     * <code>string user_name = 2;</code>
      */
     com.google.protobuf.ByteString
         getUserNameBytes();
 
     /**
-     * <code>string password = 2;</code>
+     * <code>string password = 3;</code>
      */
     java.lang.String getPassword();
     /**
-     * <code>string password = 2;</code>
+     * <code>string password = 3;</code>
      */
     com.google.protobuf.ByteString
         getPasswordBytes();
@@ -149,6 +158,7 @@ public final class ProtoMsg3 {
       super(builder);
     }
     private MsgLoginCS() {
+      type_ = 0;
       userName_ = "";
       password_ = "";
     }
@@ -184,13 +194,19 @@ public final class ProtoMsg3 {
               }
               break;
             }
-            case 10: {
+            case 8: {
+              int rawValue = input.readEnum();
+
+              type_ = rawValue;
+              break;
+            }
+            case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
               userName_ = s;
               break;
             }
-            case 18: {
+            case 26: {
               java.lang.String s = input.readStringRequireUtf8();
 
               password_ = s;
@@ -220,10 +236,26 @@ public final class ProtoMsg3 {
               com.xuren.gameserver.proto.ProtoMsg3.MsgLoginCS.class, com.xuren.gameserver.proto.ProtoMsg3.MsgLoginCS.Builder.class);
     }
 
-    public static final int USER_NAME_FIELD_NUMBER = 1;
+    public static final int TYPE_FIELD_NUMBER = 1;
+    private int type_;
+    /**
+     * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+     */
+    public int getTypeValue() {
+      return type_;
+    }
+    /**
+     * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+     */
+    public com.xuren.gameserver.proto.ProtoMsg3.HeadType getType() {
+      com.xuren.gameserver.proto.ProtoMsg3.HeadType result = com.xuren.gameserver.proto.ProtoMsg3.HeadType.valueOf(type_);
+      return result == null ? com.xuren.gameserver.proto.ProtoMsg3.HeadType.UNRECOGNIZED : result;
+    }
+
+    public static final int USER_NAME_FIELD_NUMBER = 2;
     private volatile java.lang.Object userName_;
     /**
-     * <code>string user_name = 1;</code>
+     * <code>string user_name = 2;</code>
      */
     public java.lang.String getUserName() {
       java.lang.Object ref = userName_;
@@ -238,7 +270,7 @@ public final class ProtoMsg3 {
       }
     }
     /**
-     * <code>string user_name = 1;</code>
+     * <code>string user_name = 2;</code>
      */
     public com.google.protobuf.ByteString
         getUserNameBytes() {
@@ -254,10 +286,10 @@ public final class ProtoMsg3 {
       }
     }
 
-    public static final int PASSWORD_FIELD_NUMBER = 2;
+    public static final int PASSWORD_FIELD_NUMBER = 3;
     private volatile java.lang.Object password_;
     /**
-     * <code>string password = 2;</code>
+     * <code>string password = 3;</code>
      */
     public java.lang.String getPassword() {
       java.lang.Object ref = password_;
@@ -272,7 +304,7 @@ public final class ProtoMsg3 {
       }
     }
     /**
-     * <code>string password = 2;</code>
+     * <code>string password = 3;</code>
      */
     public com.google.protobuf.ByteString
         getPasswordBytes() {
@@ -300,11 +332,14 @@ public final class ProtoMsg3 {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (type_ != com.xuren.gameserver.proto.ProtoMsg3.HeadType.MSG_LOGIN_CS.getNumber()) {
+        output.writeEnum(1, type_);
+      }
       if (!getUserNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, userName_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, userName_);
       }
       if (!getPasswordBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, password_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, password_);
       }
       unknownFields.writeTo(output);
     }
@@ -314,11 +349,15 @@ public final class ProtoMsg3 {
       if (size != -1) return size;
 
       size = 0;
+      if (type_ != com.xuren.gameserver.proto.ProtoMsg3.HeadType.MSG_LOGIN_CS.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, type_);
+      }
       if (!getUserNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, userName_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, userName_);
       }
       if (!getPasswordBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, password_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, password_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -336,6 +375,7 @@ public final class ProtoMsg3 {
       com.xuren.gameserver.proto.ProtoMsg3.MsgLoginCS other = (com.xuren.gameserver.proto.ProtoMsg3.MsgLoginCS) obj;
 
       boolean result = true;
+      result = result && type_ == other.type_;
       result = result && getUserName()
           .equals(other.getUserName());
       result = result && getPassword()
@@ -351,6 +391,8 @@ public final class ProtoMsg3 {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + type_;
       hash = (37 * hash) + USER_NAME_FIELD_NUMBER;
       hash = (53 * hash) + getUserName().hashCode();
       hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
@@ -484,6 +526,8 @@ public final class ProtoMsg3 {
       }
       public Builder clear() {
         super.clear();
+        type_ = 0;
+
         userName_ = "";
 
         password_ = "";
@@ -510,6 +554,7 @@ public final class ProtoMsg3 {
 
       public com.xuren.gameserver.proto.ProtoMsg3.MsgLoginCS buildPartial() {
         com.xuren.gameserver.proto.ProtoMsg3.MsgLoginCS result = new com.xuren.gameserver.proto.ProtoMsg3.MsgLoginCS(this);
+        result.type_ = type_;
         result.userName_ = userName_;
         result.password_ = password_;
         onBuilt();
@@ -553,6 +598,9 @@ public final class ProtoMsg3 {
 
       public Builder mergeFrom(com.xuren.gameserver.proto.ProtoMsg3.MsgLoginCS other) {
         if (other == com.xuren.gameserver.proto.ProtoMsg3.MsgLoginCS.getDefaultInstance()) return this;
+        if (other.type_ != 0) {
+          setTypeValue(other.getTypeValue());
+        }
         if (!other.getUserName().isEmpty()) {
           userName_ = other.userName_;
           onChanged();
@@ -588,9 +636,53 @@ public final class ProtoMsg3 {
         return this;
       }
 
+      private int type_ = 0;
+      /**
+       * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+       */
+      public int getTypeValue() {
+        return type_;
+      }
+      /**
+       * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+       */
+      public Builder setTypeValue(int value) {
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+       */
+      public com.xuren.gameserver.proto.ProtoMsg3.HeadType getType() {
+        com.xuren.gameserver.proto.ProtoMsg3.HeadType result = com.xuren.gameserver.proto.ProtoMsg3.HeadType.valueOf(type_);
+        return result == null ? com.xuren.gameserver.proto.ProtoMsg3.HeadType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+       */
+      public Builder setType(com.xuren.gameserver.proto.ProtoMsg3.HeadType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        type_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
+        onChanged();
+        return this;
+      }
+
       private java.lang.Object userName_ = "";
       /**
-       * <code>string user_name = 1;</code>
+       * <code>string user_name = 2;</code>
        */
       public java.lang.String getUserName() {
         java.lang.Object ref = userName_;
@@ -605,7 +697,7 @@ public final class ProtoMsg3 {
         }
       }
       /**
-       * <code>string user_name = 1;</code>
+       * <code>string user_name = 2;</code>
        */
       public com.google.protobuf.ByteString
           getUserNameBytes() {
@@ -621,7 +713,7 @@ public final class ProtoMsg3 {
         }
       }
       /**
-       * <code>string user_name = 1;</code>
+       * <code>string user_name = 2;</code>
        */
       public Builder setUserName(
           java.lang.String value) {
@@ -634,7 +726,7 @@ public final class ProtoMsg3 {
         return this;
       }
       /**
-       * <code>string user_name = 1;</code>
+       * <code>string user_name = 2;</code>
        */
       public Builder clearUserName() {
         
@@ -643,7 +735,7 @@ public final class ProtoMsg3 {
         return this;
       }
       /**
-       * <code>string user_name = 1;</code>
+       * <code>string user_name = 2;</code>
        */
       public Builder setUserNameBytes(
           com.google.protobuf.ByteString value) {
@@ -659,7 +751,7 @@ public final class ProtoMsg3 {
 
       private java.lang.Object password_ = "";
       /**
-       * <code>string password = 2;</code>
+       * <code>string password = 3;</code>
        */
       public java.lang.String getPassword() {
         java.lang.Object ref = password_;
@@ -674,7 +766,7 @@ public final class ProtoMsg3 {
         }
       }
       /**
-       * <code>string password = 2;</code>
+       * <code>string password = 3;</code>
        */
       public com.google.protobuf.ByteString
           getPasswordBytes() {
@@ -690,7 +782,7 @@ public final class ProtoMsg3 {
         }
       }
       /**
-       * <code>string password = 2;</code>
+       * <code>string password = 3;</code>
        */
       public Builder setPassword(
           java.lang.String value) {
@@ -703,7 +795,7 @@ public final class ProtoMsg3 {
         return this;
       }
       /**
-       * <code>string password = 2;</code>
+       * <code>string password = 3;</code>
        */
       public Builder clearPassword() {
         
@@ -712,7 +804,7 @@ public final class ProtoMsg3 {
         return this;
       }
       /**
-       * <code>string password = 2;</code>
+       * <code>string password = 3;</code>
        */
       public Builder setPasswordBytes(
           com.google.protobuf.ByteString value) {
@@ -779,16 +871,25 @@ public final class ProtoMsg3 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int32 code = 1;</code>
+     * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+     */
+    int getTypeValue();
+    /**
+     * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+     */
+    com.xuren.gameserver.proto.ProtoMsg3.HeadType getType();
+
+    /**
+     * <code>int32 code = 2;</code>
      */
     int getCode();
 
     /**
-     * <code>string session_id = 2;</code>
+     * <code>string session_id = 3;</code>
      */
     java.lang.String getSessionId();
     /**
-     * <code>string session_id = 2;</code>
+     * <code>string session_id = 3;</code>
      */
     com.google.protobuf.ByteString
         getSessionIdBytes();
@@ -806,6 +907,7 @@ public final class ProtoMsg3 {
       super(builder);
     }
     private MsgLoginSC() {
+      type_ = 0;
       code_ = 0;
       sessionId_ = "";
     }
@@ -842,11 +944,17 @@ public final class ProtoMsg3 {
               break;
             }
             case 8: {
+              int rawValue = input.readEnum();
+
+              type_ = rawValue;
+              break;
+            }
+            case 16: {
 
               code_ = input.readInt32();
               break;
             }
-            case 18: {
+            case 26: {
               java.lang.String s = input.readStringRequireUtf8();
 
               sessionId_ = s;
@@ -876,19 +984,35 @@ public final class ProtoMsg3 {
               com.xuren.gameserver.proto.ProtoMsg3.MsgLoginSC.class, com.xuren.gameserver.proto.ProtoMsg3.MsgLoginSC.Builder.class);
     }
 
-    public static final int CODE_FIELD_NUMBER = 1;
+    public static final int TYPE_FIELD_NUMBER = 1;
+    private int type_;
+    /**
+     * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+     */
+    public int getTypeValue() {
+      return type_;
+    }
+    /**
+     * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+     */
+    public com.xuren.gameserver.proto.ProtoMsg3.HeadType getType() {
+      com.xuren.gameserver.proto.ProtoMsg3.HeadType result = com.xuren.gameserver.proto.ProtoMsg3.HeadType.valueOf(type_);
+      return result == null ? com.xuren.gameserver.proto.ProtoMsg3.HeadType.UNRECOGNIZED : result;
+    }
+
+    public static final int CODE_FIELD_NUMBER = 2;
     private int code_;
     /**
-     * <code>int32 code = 1;</code>
+     * <code>int32 code = 2;</code>
      */
     public int getCode() {
       return code_;
     }
 
-    public static final int SESSION_ID_FIELD_NUMBER = 2;
+    public static final int SESSION_ID_FIELD_NUMBER = 3;
     private volatile java.lang.Object sessionId_;
     /**
-     * <code>string session_id = 2;</code>
+     * <code>string session_id = 3;</code>
      */
     public java.lang.String getSessionId() {
       java.lang.Object ref = sessionId_;
@@ -903,7 +1027,7 @@ public final class ProtoMsg3 {
       }
     }
     /**
-     * <code>string session_id = 2;</code>
+     * <code>string session_id = 3;</code>
      */
     public com.google.protobuf.ByteString
         getSessionIdBytes() {
@@ -931,11 +1055,14 @@ public final class ProtoMsg3 {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (type_ != com.xuren.gameserver.proto.ProtoMsg3.HeadType.MSG_LOGIN_CS.getNumber()) {
+        output.writeEnum(1, type_);
+      }
       if (code_ != 0) {
-        output.writeInt32(1, code_);
+        output.writeInt32(2, code_);
       }
       if (!getSessionIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, sessionId_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, sessionId_);
       }
       unknownFields.writeTo(output);
     }
@@ -945,12 +1072,16 @@ public final class ProtoMsg3 {
       if (size != -1) return size;
 
       size = 0;
+      if (type_ != com.xuren.gameserver.proto.ProtoMsg3.HeadType.MSG_LOGIN_CS.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, type_);
+      }
       if (code_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, code_);
+          .computeInt32Size(2, code_);
       }
       if (!getSessionIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, sessionId_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, sessionId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -968,6 +1099,7 @@ public final class ProtoMsg3 {
       com.xuren.gameserver.proto.ProtoMsg3.MsgLoginSC other = (com.xuren.gameserver.proto.ProtoMsg3.MsgLoginSC) obj;
 
       boolean result = true;
+      result = result && type_ == other.type_;
       result = result && (getCode()
           == other.getCode());
       result = result && getSessionId()
@@ -983,6 +1115,8 @@ public final class ProtoMsg3 {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + type_;
       hash = (37 * hash) + CODE_FIELD_NUMBER;
       hash = (53 * hash) + getCode();
       hash = (37 * hash) + SESSION_ID_FIELD_NUMBER;
@@ -1116,6 +1250,8 @@ public final class ProtoMsg3 {
       }
       public Builder clear() {
         super.clear();
+        type_ = 0;
+
         code_ = 0;
 
         sessionId_ = "";
@@ -1142,6 +1278,7 @@ public final class ProtoMsg3 {
 
       public com.xuren.gameserver.proto.ProtoMsg3.MsgLoginSC buildPartial() {
         com.xuren.gameserver.proto.ProtoMsg3.MsgLoginSC result = new com.xuren.gameserver.proto.ProtoMsg3.MsgLoginSC(this);
+        result.type_ = type_;
         result.code_ = code_;
         result.sessionId_ = sessionId_;
         onBuilt();
@@ -1185,6 +1322,9 @@ public final class ProtoMsg3 {
 
       public Builder mergeFrom(com.xuren.gameserver.proto.ProtoMsg3.MsgLoginSC other) {
         if (other == com.xuren.gameserver.proto.ProtoMsg3.MsgLoginSC.getDefaultInstance()) return this;
+        if (other.type_ != 0) {
+          setTypeValue(other.getTypeValue());
+        }
         if (other.getCode() != 0) {
           setCode(other.getCode());
         }
@@ -1219,15 +1359,59 @@ public final class ProtoMsg3 {
         return this;
       }
 
+      private int type_ = 0;
+      /**
+       * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+       */
+      public int getTypeValue() {
+        return type_;
+      }
+      /**
+       * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+       */
+      public Builder setTypeValue(int value) {
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+       */
+      public com.xuren.gameserver.proto.ProtoMsg3.HeadType getType() {
+        com.xuren.gameserver.proto.ProtoMsg3.HeadType result = com.xuren.gameserver.proto.ProtoMsg3.HeadType.valueOf(type_);
+        return result == null ? com.xuren.gameserver.proto.ProtoMsg3.HeadType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+       */
+      public Builder setType(com.xuren.gameserver.proto.ProtoMsg3.HeadType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        type_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.com.xuren.gameserver.proto.HeadType type = 1;</code>
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
+        onChanged();
+        return this;
+      }
+
       private int code_ ;
       /**
-       * <code>int32 code = 1;</code>
+       * <code>int32 code = 2;</code>
        */
       public int getCode() {
         return code_;
       }
       /**
-       * <code>int32 code = 1;</code>
+       * <code>int32 code = 2;</code>
        */
       public Builder setCode(int value) {
         
@@ -1236,7 +1420,7 @@ public final class ProtoMsg3 {
         return this;
       }
       /**
-       * <code>int32 code = 1;</code>
+       * <code>int32 code = 2;</code>
        */
       public Builder clearCode() {
         
@@ -1247,7 +1431,7 @@ public final class ProtoMsg3 {
 
       private java.lang.Object sessionId_ = "";
       /**
-       * <code>string session_id = 2;</code>
+       * <code>string session_id = 3;</code>
        */
       public java.lang.String getSessionId() {
         java.lang.Object ref = sessionId_;
@@ -1262,7 +1446,7 @@ public final class ProtoMsg3 {
         }
       }
       /**
-       * <code>string session_id = 2;</code>
+       * <code>string session_id = 3;</code>
        */
       public com.google.protobuf.ByteString
           getSessionIdBytes() {
@@ -1278,7 +1462,7 @@ public final class ProtoMsg3 {
         }
       }
       /**
-       * <code>string session_id = 2;</code>
+       * <code>string session_id = 3;</code>
        */
       public Builder setSessionId(
           java.lang.String value) {
@@ -1291,7 +1475,7 @@ public final class ProtoMsg3 {
         return this;
       }
       /**
-       * <code>string session_id = 2;</code>
+       * <code>string session_id = 3;</code>
        */
       public Builder clearSessionId() {
         
@@ -1300,7 +1484,7 @@ public final class ProtoMsg3 {
         return this;
       }
       /**
-       * <code>string session_id = 2;</code>
+       * <code>string session_id = 3;</code>
        */
       public Builder setSessionIdBytes(
           com.google.protobuf.ByteString value) {
@@ -2392,16 +2576,18 @@ public final class ProtoMsg3 {
   static {
     java.lang.String[] descriptorData = {
       "\n\017ProtoMsg3.proto\022\032com.xuren.gameserver." +
-      "proto\"1\n\nMsgLoginCS\022\021\n\tuser_name\030\001 \001(\t\022\020" +
-      "\n\010password\030\002 \001(\t\".\n\nMsgLoginSC\022\014\n\004code\030\001" +
-      " \001(\005\022\022\n\nsession_id\030\002 \001(\t\"\311\001\n\007Message\0222\n\004" +
-      "type\030\001 \001(\0162$.com.xuren.gameserver.proto." +
-      "HeadType\022\022\n\nsession_id\030\002 \001(\t\022:\n\nmsgLogin" +
-      "CS\030\003 \001(\0132&.com.xuren.gameserver.proto.Ms" +
-      "gLoginCS\022:\n\nmsgLoginSC\030\004 \001(\0132&.com.xuren" +
-      ".gameserver.proto.MsgLoginSC*.\n\010HeadType" +
-      "\022\020\n\014MSG_LOGIN_CS\020\000\022\020\n\014MSG_LOGIN_SC\020\001b\006pr" +
-      "oto3"
+      "proto\"e\n\nMsgLoginCS\0222\n\004type\030\001 \001(\0162$.com." +
+      "xuren.gameserver.proto.HeadType\022\021\n\tuser_" +
+      "name\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\"b\n\nMsgLogin" +
+      "SC\0222\n\004type\030\001 \001(\0162$.com.xuren.gameserver." +
+      "proto.HeadType\022\014\n\004code\030\002 \001(\005\022\022\n\nsession_" +
+      "id\030\003 \001(\t\"\311\001\n\007Message\0222\n\004type\030\001 \001(\0162$.com" +
+      ".xuren.gameserver.proto.HeadType\022\022\n\nsess" +
+      "ion_id\030\002 \001(\t\022:\n\nmsgLoginCS\030\003 \001(\0132&.com.x" +
+      "uren.gameserver.proto.MsgLoginCS\022:\n\nmsgL" +
+      "oginSC\030\004 \001(\0132&.com.xuren.gameserver.prot" +
+      "o.MsgLoginSC*.\n\010HeadType\022\020\n\014MSG_LOGIN_CS" +
+      "\020\000\022\020\n\014MSG_LOGIN_SC\020\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2420,13 +2606,13 @@ public final class ProtoMsg3 {
     internal_static_com_xuren_gameserver_proto_MsgLoginCS_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_xuren_gameserver_proto_MsgLoginCS_descriptor,
-        new java.lang.String[] { "UserName", "Password", });
+        new java.lang.String[] { "Type", "UserName", "Password", });
     internal_static_com_xuren_gameserver_proto_MsgLoginSC_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_com_xuren_gameserver_proto_MsgLoginSC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_xuren_gameserver_proto_MsgLoginSC_descriptor,
-        new java.lang.String[] { "Code", "SessionId", });
+        new java.lang.String[] { "Type", "Code", "SessionId", });
     internal_static_com_xuren_gameserver_proto_Message_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_com_xuren_gameserver_proto_Message_fieldAccessorTable = new

@@ -1,6 +1,7 @@
 package com.xuren.gameserver;
 
 import com.xuren.gameserver.net.NetWorkServer;
+import com.xuren.gameserver.net.NetworkMsgMap;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,9 @@ public class ServerApplication {
         // 启动并初始化 Spring 环境及其各 Spring 组件
         ApplicationContext context =
                 SpringApplication.run(ServerApplication.class, args);
+        // 初始化协议映射
+        NetworkMsgMap.init(context);
+        // 启动游戏服务器
         NetWorkServer netWorkServer = context.getBean(NetWorkServer.class);
         netWorkServer.runServer();
     }

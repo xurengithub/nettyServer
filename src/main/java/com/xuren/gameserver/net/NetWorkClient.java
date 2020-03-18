@@ -1,6 +1,12 @@
 package com.xuren.gameserver.net;
 
+import com.google.protobuf.GeneratedMessageV3;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.xuren.common.utils.ArrayUtils;
+import com.xuren.common.utils.ServNetUtils;
+import com.xuren.common.utils2.JsonUtil;
+import com.xuren.gameserver.net.proto.MsgBase;
+import com.xuren.gameserver.net.proto.MsgLoginCS;
 import com.xuren.gameserver.proto.ProtoMsg3;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
@@ -46,25 +52,22 @@ public class NetWorkClient {
             Scanner s = new Scanner(System.in);
 
             for (int i = 0; i < 100; i++) {
-                ProtoMsg3.Message.Builder b1 = ProtoMsg3.Message.newBuilder();
-                ProtoMsg3.MsgLoginCS.Builder b2 = ProtoMsg3.MsgLoginCS.newBuilder();
-                b2.setPassword("kuaibeicheng");
-                b2.setUserName("xuren");
-                ProtoMsg3.MsgLoginCS msgLoginCS = b2.build();
-                b1.setMsgLoginCS(msgLoginCS);
-                ProtoMsg3.Message m = b1.setSessionId("1213").setType(ProtoMsg3.HeadType.MSG_LOGIN_CS).build();
+                MsgLoginCS msgLoginCS = new MsgLoginCS();
+                msgLoginCS.setId("xurenzuishuai");
+                msgLoginCS.setPw("kuaibeicheng");
 
+                byte[] bytes = JsonUtil.Object2JsonBytes(msgLoginCS);
+                byte[] bytes1 = ServNetUtils.intToByteArray(msgLoginCS.getType());
 
-                byte[] bytes = m.toByteArray();
-                ProtoMsg3.Message outmsg = ProtoMsg3.Message.parseFrom(bytes);
-                System.out.println(new String(bytes));
                 ByteBuf b = Unpooled.buffer();
-                b.writeInt(bytes.length);
+                System.out.println(bytes.length);
+                b.writeInt(bytes.length+bytes1.length);
+                b.writeInt(msgLoginCS.getType());
                 b.writeBytes(bytes);
                 c.writeAndFlush(b);
             }
 
-        } catch (InterruptedException | InvalidProtocolBufferException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
             worker.shutdownGracefully();
