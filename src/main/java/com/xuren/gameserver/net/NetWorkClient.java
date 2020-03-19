@@ -51,7 +51,7 @@ public class NetWorkClient {
             Channel c = channelFuture.channel();
             Scanner s = new Scanner(System.in);
 
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 1; i++) {
                 MsgLoginCS msgLoginCS = new MsgLoginCS();
                 msgLoginCS.setId("xurenzuishuai");
                 msgLoginCS.setPw("kuaibeicheng");

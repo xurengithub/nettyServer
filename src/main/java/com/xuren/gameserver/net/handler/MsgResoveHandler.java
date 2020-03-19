@@ -8,10 +8,12 @@ import com.xuren.gameserver.net.proto.MsgBase;
 import com.xuren.gameserver.net.proto.MsgLoginCS;
 import com.xuren.gameserver.proto.ProtoMsg3;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
 
+@ChannelHandler.Sharable
 public class MsgResoveHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {

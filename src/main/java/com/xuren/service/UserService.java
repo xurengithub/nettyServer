@@ -23,4 +23,7 @@ public class UserService {
         userMapper.saveOne(userInfoEntity);
     }
 
+    public void Update(UserInfoEntity userInfoEntity) {
+        userMapper.updateOne(userInfoEntity);
+    }
 }

@@ -9,4 +9,5 @@ import java.util.List;
 public interface UserMapper {
     int saveOne(UserInfoEntity user);
     List<UserInfoEntity> queryAllUsers();
+    int updateOne(UserInfoEntity user);
 }

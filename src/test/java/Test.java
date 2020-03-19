@@ -3,10 +3,13 @@ import com.google.common.hash.Funnels;
 import com.google.protobuf.GeneratedMessageV3;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.xuren.common.utils.RedisOperator;
+import com.xuren.dao.entity.ItemEntity;
 import com.xuren.dao.entity.UserInfoEntity;
 import com.xuren.dao.mapper.UserMapper;
 import com.xuren.gameserver.ServerApplication;
 import com.xuren.gameserver.proto.ProtoMsg3;
+import com.xuren.service.ItemService;
+import com.xuren.service.PlayerService;
 import org.junit.runner.RunWith;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,10 @@ import java.util.List;
 public class Test {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private ItemService itemService;
+    @Autowired
+    private PlayerService playerService;
     @Autowired
     private Sid sid;
     @Autowired
@@ -51,6 +58,7 @@ public class Test {
 
     }
 
+    @org.junit.Test
     public void testBoom() {
         BloomFilter<Integer> filter = BloomFilter.create(
                 Funnels.integerFunnel(),
@@ -64,5 +72,25 @@ public class Test {
         filter.put(2);
         System.out.println(filter.mightContain(1));
         System.out.println(filter.mightContain(2));
+    }
+
+    @org.junit.Test
+    public void testUpdate() {
+        UserInfoEntity userInfoEntity = new UserInfoEntity();
+        userInfoEntity.setId("100001");
+        userInfoEntity.setNickName("xuren002");
+        userMapper.updateOne(userInfoEntity);
+    }
+
+    @org.junit.Test
+    public void testItemAndPlayer() {
+        ItemEntity itemEntity = new ItemEntity();
+        itemEntity.setPlayerId(100001);
+        itemEntity.setAttribute("dsds");
+        itemEntity.setItemId(1);
+        itemEntity.setNum(1);
+        itemService.insert(itemEntity);
+//        itemService.deleteItems(100001L, 1);
+        itemService.findItemsByItemId(1);
     }
 }
