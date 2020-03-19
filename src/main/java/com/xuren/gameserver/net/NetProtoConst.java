@@ -1,6 +1,8 @@
 package com.xuren.gameserver.net;
 
 public class NetProtoConst {
+
+    public static final int MSG_HEART_BEAT = 1;
     /**
      * 用户相关协议10000-19999
      */
