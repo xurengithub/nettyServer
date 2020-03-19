@@ -1,6 +1,8 @@
 package com.xuren.gameserver.net;
 
-import com.xuren.gameserver.net.handler.MsgResoveHandler;
+import com.xuren.gameserver.net.codec.MsgDecoder;
+import com.xuren.gameserver.net.codec.MsgEncoder;
+import com.xuren.gameserver.net.handler.*;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.ChannelFuture;
@@ -11,6 +13,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +22,8 @@ public class NetWorkServer {
     /**
      * 端口号
      */
-    private int serverPort = 8099;
+    @Value("${gameserver.port}")
+    private int serverPort;
 
     public void runServer() {
         EventLoopGroup boss = new NioEventLoopGroup(1);
@@ -32,12 +36,18 @@ public class NetWorkServer {
             serverBootstrap.option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);
             serverBootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
                 protected void initChannel(SocketChannel socketChannel) throws Exception {
-                    socketChannel.pipeline().addLast(new LengthFieldBasedFrameDecoder(2048,0,4,4,0))
-                            .addLast(new MsgResoveHandler());
+//                    socketChannel.pipeline().addLast(new LengthFieldBasedFrameDecoder(2048,0,4,4,0))
+//                            .addLast(new MsgResoveHandler());
+                    socketChannel.pipeline().addLast(new MsgDecoder())
+                            .addLast(new MsgEncoder())
+                            .addLast(new HeartBeatServerHandler())
+                            .addLast(new LoginRequestHandler())
+                            .addLast(new MsgDispatcherHandler())
+                            .addLast(new ServerExceptionHandler());
                 }
             });
             ChannelFuture cf = serverBootstrap.bind().sync();
-            System.out.println("服务器启动");
+            System.out.println("服务器启动"+cf.channel().localAddress());
             ChannelFuture closeFuture = cf.channel().closeFuture();
             closeFuture.sync();
             System.out.println("服务器关闭");
