@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 //@Slf4j
-@Service("LoginProcesser")
+@Service
 public class LoginProcesser extends AbstractServerProcesser {
     @Autowired
     private UserService userService;
