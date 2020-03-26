@@ -54,7 +54,7 @@ public class NetWorkClient {
             for (int i = 0; i < 1; i++) {
                 MsgLoginCS msgLoginCS = new MsgLoginCS();
                 msgLoginCS.setId("xurenzuishuai");
-                msgLoginCS.setPw("kuaibeicheng");
+                msgLoginCS.setPw("123456");
 
                 byte[] bytes = JsonUtil.Object2JsonBytes(msgLoginCS);
                 byte[] bytes1 = ServNetUtils.intToByteArray(msgLoginCS.getType());

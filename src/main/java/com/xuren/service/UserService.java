@@ -1,5 +1,6 @@
 package com.xuren.service;
 
+import com.xuren.common.bean.User;
 import com.xuren.dao.entity.UserInfoEntity;
 import com.xuren.dao.mapper.UserMapper;
 import org.n3r.idworker.Sid;
@@ -23,7 +24,21 @@ public class UserService {
         userMapper.saveOne(userInfoEntity);
     }
 
-    public void Update(UserInfoEntity userInfoEntity) {
+    public void update(UserInfoEntity userInfoEntity) {
         userMapper.updateOne(userInfoEntity);
+    }
+
+    public boolean verifyAccountAndPassword(String account, String password) {
+        UserInfoEntity userInfoEntity = userMapper.queryUserByAccount(account);
+        if(null != userInfoEntity && null != userInfoEntity.getAccount() && !"".equals(userInfoEntity.getAccount())) {
+            if(userInfoEntity.getPassword().equals(password)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean verifyAccountAndPassword(User user) {
+        return verifyAccountAndPassword(user.getAccount(), user.getPassword());
     }
 }

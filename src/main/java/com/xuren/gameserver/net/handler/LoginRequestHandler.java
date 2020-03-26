@@ -2,6 +2,7 @@ package com.xuren.gameserver.net.handler;
 
 import com.xuren.common.cocurrent.CallbackTask;
 import com.xuren.common.cocurrent.CallbackTaskScheduler;
+import com.xuren.common.utils2.SpringUtil;
 import com.xuren.gameserver.net.NetProtoConst;
 import com.xuren.gameserver.net.ServerSession;
 import com.xuren.gameserver.net.processer.LoginProcesser;
@@ -10,16 +11,16 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
 
 @Slf4j
-@Service("LoginRequestHandler")
 @ChannelHandler.Sharable
 public class LoginRequestHandler extends ChannelInboundHandlerAdapter {
 
-    @Autowired
-    LoginProcesser loginProcesser;
+    private static LoginProcesser loginProcesser;
+    static {
+        loginProcesser = SpringUtil.getBean(LoginProcesser.class);
+    }
 
     /**
      * 收到消息
@@ -42,9 +43,7 @@ public class LoginRequestHandler extends ChannelInboundHandlerAdapter {
             return;
         }
 
-
         ServerSession session = new ServerSession(ctx.channel());
-
         //异步任务，处理登录的逻辑
         CallbackTaskScheduler.add(new CallbackTask<Boolean>() {
             @Override

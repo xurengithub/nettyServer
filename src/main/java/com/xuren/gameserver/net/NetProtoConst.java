@@ -3,6 +3,7 @@ package com.xuren.gameserver.net;
 public class NetProtoConst {
 
     public static final int MSG_HEART_BEAT = 1;
+    public static final int MSG_SC = 2;
     /**
      * 用户相关协议10000-19999
      */
@@ -12,5 +13,6 @@ public class NetProtoConst {
     /**
      * 游戏相关协议20000-29999
      */
+
 
 }

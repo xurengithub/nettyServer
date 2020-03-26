@@ -10,4 +10,5 @@ public interface UserMapper {
     int saveOne(UserInfoEntity user);
     List<UserInfoEntity> queryAllUsers();
     int updateOne(UserInfoEntity user);
+    UserInfoEntity queryUserByAccount(String account);
 }

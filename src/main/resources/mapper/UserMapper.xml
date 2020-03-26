@@ -29,4 +29,10 @@
         </trim>
         where id=#{id}
     </update>
+
+    <select id="queryUserByAccount" resultType="com.xuren.dao.entity.UserInfoEntity">
+        select *
+        from user_info
+        where account=#{account} limit 1
+    </select>
 </mapper>
