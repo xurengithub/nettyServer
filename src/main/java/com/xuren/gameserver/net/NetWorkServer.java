@@ -42,6 +42,7 @@ public class NetWorkServer {
                             .addLast(new MsgEncoder())
                             .addLast(new HeartBeatServerHandler())
                             .addLast(new LoginRequestHandler())
+                            .addLast(new LoginFilterHander())
                             .addLast(new MsgDispatcherHandler())
                             .addLast(new ServerExceptionHandler());
                 }

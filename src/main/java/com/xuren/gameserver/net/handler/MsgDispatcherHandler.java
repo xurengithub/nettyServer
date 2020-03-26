@@ -1,5 +1,6 @@
 package com.xuren.gameserver.net.handler;
 
+import com.xuren.gameserver.net.NetMsgDispatcher;
 import com.xuren.gameserver.net.proto.MsgBase;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -16,6 +17,6 @@ public class MsgDispatcherHandler extends ChannelInboundHandlerAdapter {
         }
 
         MsgBase msgBase = (MsgBase) msg;
-        msgBase.getType();
+        NetMsgDispatcher.dispatcher(msgBase.getType(), msgBase);
     }
 }

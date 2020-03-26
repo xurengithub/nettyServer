@@ -70,7 +70,6 @@ public class LoginProcesser extends AbstractServerProcesser {
         //校验用户,比较耗时的操作,需要100 ms以上的时间
         //方法1：调用远程用户restfull 校验服务
         //方法2：调用数据库接口校验
-        boolean is = userService.verifyAccountAndPassword(user);
         return userService.verifyAccountAndPassword(user);
 
 //        return true;

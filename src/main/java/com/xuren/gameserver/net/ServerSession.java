@@ -115,6 +115,7 @@ public class ServerSession {
             @Override
             public void operationComplete(ChannelFuture future) throws Exception {
                 if (!future.isSuccess()) {
+                    System.out.println("关闭失败");
                 }
             }
         });

@@ -3,6 +3,7 @@ package com.xuren.gameserver.net;
 import com.xuren.biz.AbstractHandler;
 import com.xuren.biz.UserHandler;
 import com.xuren.gameserver.net.proto.MsgLoginCS;
+import com.xuren.gameserver.net.proto.MsgLogoutCS;
 import com.xuren.gameserver.proto.ProtoMsg3;
 import org.springframework.context.ApplicationContext;
 
@@ -17,6 +18,7 @@ public class NetworkMsgMap {
      */
     static {
         map.put(NetProtoConst.MSG_LOGIN_CS, MsgLoginCS.class);
+        map.put(NetProtoConst.MSG_LOGOUT_CS, MsgLogoutCS.class);
     }
 
     public static void init(ApplicationContext context) {

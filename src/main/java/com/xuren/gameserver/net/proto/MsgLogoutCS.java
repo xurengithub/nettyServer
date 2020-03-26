@@ -1,15 +1,12 @@
 package com.xuren.gameserver.net.proto;
 
-public class MsgBase {
-    protected int type;
+import com.xuren.gameserver.net.NetProtoConst;
+
+public class MsgLogoutCS extends MsgBase {
     private String sessionId;
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
+    public MsgLogoutCS() {
+        this.type = NetProtoConst.MSG_LOGOUT_CS;
     }
 
     public String getSessionId() {

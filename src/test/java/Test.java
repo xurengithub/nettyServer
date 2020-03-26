@@ -10,6 +10,7 @@ import com.xuren.gameserver.ServerApplication;
 import com.xuren.gameserver.proto.ProtoMsg3;
 import com.xuren.service.ItemService;
 import com.xuren.service.PlayerService;
+import com.xuren.service.UserService;
 import org.junit.runner.RunWith;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class Test {
     private Sid sid;
     @Autowired
     private RedisOperator redisOperator;
+    @Autowired
+    private UserService userService;
     @org.junit.Test
     public void test1() {
         UserInfoEntity userInfoEntity = new UserInfoEntity();
@@ -92,5 +95,11 @@ public class Test {
         itemService.insert(itemEntity);
 //        itemService.deleteItems(100001L, 1);
         itemService.findItemsByItemId(1);
+    }
+
+    @org.junit.Test
+    public void testUserService() {
+        boolean is = userService.verifyAccountAndPassword("xurenzuishuai","123456");
+        System.out.println(is);
     }
 }
