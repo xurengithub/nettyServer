@@ -11,11 +11,15 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 
 @Slf4j
 @ChannelHandler.Sharable
 public class LoginRequestHandler extends ChannelInboundHandlerAdapter {
+
+    private Logger log = LogManager.getLogger(LoginRequestHandler.class);
 
     private static LoginProcesser loginProcesser;
     static {
@@ -57,11 +61,11 @@ public class LoginRequestHandler extends ChannelInboundHandlerAdapter {
             public void onBack(Boolean r) {
                 if (r) {
                     ctx.pipeline().remove(LoginRequestHandler.this);
-//                    log.info("登录成功:" + session.getUser());
+                    log.info("登录成功:" + session.getUser());
 
                 } else {
                     ServerSession.closeSession(ctx);
-//                    log.info("登录失败:" + session.getUser());
+                    log.info("登录失败:" + session.getUser());
 
                 }
 
@@ -71,7 +75,7 @@ public class LoginRequestHandler extends ChannelInboundHandlerAdapter {
             @Override
             public void onException(Throwable t) {
                 ServerSession.closeSession(ctx);
-//                log.info("登录失败:" + session.getUser());
+                log.info("登录失败:" + session.getUser());
 
             }
         });

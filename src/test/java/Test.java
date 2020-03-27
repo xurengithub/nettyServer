@@ -11,6 +11,8 @@ import com.xuren.gameserver.proto.ProtoMsg3;
 import com.xuren.service.ItemService;
 import com.xuren.service.PlayerService;
 import com.xuren.service.UserService;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.junit.runner.RunWith;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ServerApplication.class)
 public class Test {
+    Logger log = LogManager.getLogger(Test.class);
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -101,5 +104,6 @@ public class Test {
     public void testUserService() {
         boolean is = userService.verifyAccountAndPassword("xurenzuishuai","123456");
         System.out.println(is);
+        log.info("testtestUserService");
     }
 }
